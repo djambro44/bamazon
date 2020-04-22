@@ -1,5 +1,5 @@
 var mysql = require("mysql");
-var inquirer = require(inquirer);
+var inquirer = require("inquirer");
 
 //creates connection for sql
 var connection = mysql.createConnection({
@@ -13,23 +13,50 @@ var connection = mysql.createConnection({
 //connets mysql server and sql database
 connection.connect(function(err) {
     if (err) throw err;
-    start();
+    showTable();
 });
 
-function start() {
+function showTable () {
+    connection.query("SELECT * FROM products", function(err, results) {
+        if (err) throw err;
+        console.log(results);
+        start(results);
+    });
+
+
+}
+
+function start(results) {
     inquirer
 
-    //need to show bamazon table 
-        .prompt({
+    
+        .prompt([{
             name: "whatToBuy",
             type: "list",
             message: "Please select the [ID] of the item you would like to purchase",
-            choices: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
-        })
-        .prompt({
+            choices:  Array.from(results, x => x.id)
+
+        },{
             name: "quantity",
             type: "number",
             message: "How many units would you like to buy?"
+        }])
+        
+        .then(function(answer){
+            console.log(answer);
+        
+            console.log("SELECT * FROM products WHERE id =" + answer.whatToBuy);
+          connection.query("SELECT * FROM products WHERE id =" + answer.whatToBuy, function(err, results) {
+              if (err) throw err;
+            console.log(results);
+            console.log(answer.quantity)
+            console.log(results[0].stock_quantity);
+            if(answer.quantity <= results[0].stock_quantity) {
+                console.log("approved");
+            }else {
+                console.log("denied");
+            }
+          })
         })
 
 
