@@ -3,7 +3,7 @@
 
 https://djambro44.github.io/bamazon/
 
-<h1>Bamazon!<h1>
+#Bamazon!
   This is an app simulating an e-commerce store using mysql database. 
   The database includes: 
   ..*item_id (unique id for each product)
