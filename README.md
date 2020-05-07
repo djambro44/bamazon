@@ -27,7 +27,7 @@ The app will then check if the store currently has suffencent stock for the orde
 ..*If the product has enough units in stock the app will return "Approved"
 
 
-..*If the product does not have enough units in stock the app will return "Declined"
+..*If the product does not have enough units in stock the app will return "Denied"
 
 ![Image of bamazon 1](https://djambro44.github.io/bamazon/images/bamazonScreenShot1.png)
 
